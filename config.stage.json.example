@@ -4,5 +4,9 @@
     "DB_PASSWORD": "",
     "DB_HOST": "",
     "DB_PORT": "",
-    "DB_NAME": ""
+    "DB_NAME": "",
+    "RT_EXPIRATION": "", # Refresh token's expiration time
+    "AT_EXPIRATION": "", # Access token's expiration time
+    "JWT_EXPIRATION": "", # JWT hash expiration time
+    "JWT_SECRET": "", # jwt encrypt key
 }
