@@ -1,6 +1,6 @@
 from flask import Flask
 import os
-from blueprints import user
+from blueprints import user, login, config
 import models
 from utils.error_handler import error_treatment
 
@@ -28,6 +28,8 @@ def create_app(config=None):
 
     # NOTE register blueprints
     app.register_blueprint(user.bp)
+    app.register_blueprint(login.bp)
+    app.register_blueprint(config.bp)
 
     # NOTE CORS
     @app.after_request
