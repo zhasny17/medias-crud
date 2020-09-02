@@ -1,0 +1,31 @@
+{
+  "name": "media-crud",
+  "version": "1.0.0",
+  "description": "media API",
+  "main": "app.py",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhasny17/medias-crud.git"
+  },
+  "keywords": [
+    "crud",
+    "python",
+    "flask"
+  ],
+  "author": "lucas luz feitosa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhasny17/medias-crud/issues"
+  },
+  "homepage": "https://github.com/zhasny17/medias-crud#readme",
+  "dependencies": {
+    "serverless": "1.51.0",
+    "serverless-python-requirements": "5.0.1"
+  },
+  "devDependencies": {
+    "serverless-wsgi": "1.7.4"
+}
+}
