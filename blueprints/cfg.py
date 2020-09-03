@@ -1,11 +1,11 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify
 from utils import auth
 from utils.tools import upload_component
 from utils.error_handler import NotFoundException, ConflictException, BadRequestException, UnauthorizedException
 #############################################################################
 #                                 VARIABLES                                 #
 #############################################################################
-bp = Blueprint('login', __name__)
+bp = Blueprint('cfg', __name__)
 
 #############################################################################
 #                             HELPER FUNCTIONS                              #

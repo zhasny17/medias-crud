@@ -84,3 +84,19 @@ class RefreshToken(db.Model):
 
     def is_active(self):
         return self.valid and not self.has_expired()
+
+
+class Video(db.Model):
+    __table_args__ = (
+        tables_config
+    )
+    __tablename__ = 'videos'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(512), nullable=False)
+    url = db.Column(db.String(512), nullable=False)
+    duration = db.Column(db.Integer, nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime(timezone=True))
+    removed_at = db.Column(db.DateTime(timezone=True))
+    removed = db.Column(db.Boolean, nullable=False, default=False)

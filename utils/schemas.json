@@ -57,5 +57,28 @@
         "required": [
             "grant_type"
         ]
+    },
+    "video_schema": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "url": {
+                "type": "string",
+                "format": "uri"
+            },
+            "duration": {
+                "type": "number",
+                "minimum": 0,
+                "exclusiveMaximum": true
+            }
+        },
+        "additionalProperties": false,
+        "required": [
+            "name",
+            "url",
+            "duration"
+        ]
     }
 }

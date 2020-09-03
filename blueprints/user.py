@@ -31,7 +31,7 @@ def jsonify_user(user):
 #############################################################################
 #                                  ROUTES                                   #
 #############################################################################
-@bp.route('/users', methods=["GET"])
+@bp.route('/', methods=["GET"])
 @auth.authenticate_admin
 def getAll():
     page = request.args.get('page', 1)
@@ -51,7 +51,7 @@ def getAll():
     return jsonify({'users': users})
 
 
-@bp.route('/users', methods=["POST"])
+@bp.route('/', methods=["POST"])
 @auth.authenticate_admin
 def insert():
     user_body = request.json
@@ -71,7 +71,7 @@ def insert():
         raise ConflictException(message='Conflito no banco de dados')
 
 
-@bp.route('/users/<string:user_id>', methods=["GET"])
+@bp.route('/<string:user_id>', methods=["GET"])
 @auth.authenticate_admin
 def getOne(user_id):
     user = models.User.query.get(user_id)
@@ -81,7 +81,7 @@ def getOne(user_id):
     return jsonify(response)
 
 
-@bp.route('/users/<string:user_id>', methods=["PUT"])
+@bp.route('/<string:user_id>', methods=["PUT"])
 @auth.authenticate_admin
 def update(user_id):
     user_body = request.json
@@ -89,19 +89,22 @@ def update(user_id):
     user = models.User.query.get(user_id)
     if not user or user.removed or not user.active:
         raise NotFoundException(message='usuario nao encontrado')
+
     user.username = user_body.get('username')
     user.name = user_body.get('name')
+    user.updated_at = datetime.utcnow()
+
     models.db.session.add(user)
     try:
         models.db.session.commit()
         return return_no_content()
     except Exception as err:
-        print(f'Erro ao inserir usuario: {err}')
+        print(f'Erro ao atualizar usuario: {err}')
         models.db.session.rollback()
         raise ConflictException(message='Conflito no banco de dados')
 
 
-@bp.route('/users/<string:user_id>', methods=["DELETE"])
+@bp.route('/<string:user_id>', methods=["DELETE"])
 @auth.authenticate_admin
 def remove(user_id):
     user = models.User.query.get(user_id)
