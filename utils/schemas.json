@@ -80,5 +80,26 @@
             "url",
             "duration"
         ]
+    },
+    "change_pass_schema": {
+        "type": "object",
+        "properties": {
+            "current_password": {
+                "type": "string",
+                "minLength": 6,
+                "maxLength": 100
+
+            },
+            "new_password": {
+                "type": "string",
+                "minLength": 6,
+                "maxLength": 100
+            }
+        },
+        "additionalProperties": false,
+        "required": [
+            "current_password",
+            "new_password"
+        ]
     }
 }

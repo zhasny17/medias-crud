@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, make_response
 from datetime import datetime
 import models
-from . import user_schema_insert, user_schema_update, validate_instance, return_no_content
+from . import user_schema_insert, user_schema_update, change_pass_schema, validate_instance, return_no_content
 from utils.error_handler import BadRequestException, ConflictException, NotFoundException, ForbiddenException
 from utils import auth
 
@@ -119,4 +119,31 @@ def remove(user_id):
         print(f'Erro ao remover usuario{err}')
         models.db.session.rollback()
         raise ConflictException(message='Conflito no banco de dados')
+    return return_no_content()
+
+
+@bp.route('/change/password', methods=['POST'])
+@auth.authenticate_user
+def change_pass():
+    payload = request.get_json()
+
+    validate_instance(payload=payload, schema=change_pass_schema)
+
+    current_password = payload.get('current_password')
+    new_password = payload.get('new_password')
+
+    user = auth.get_user()
+
+    if current_password == new_password:
+        raise ConflictException(message='Senhas informadas iguais')
+
+    if user.password != models.User.hash_password(current_password):
+        raise ConflictException(message='Informacoes invalidas')
+
+    user.password = models.User.hash_password(new_password)
+
+    models.db.session.add(user)
+
+    models.db.session.commit()
+
     return return_no_content()
