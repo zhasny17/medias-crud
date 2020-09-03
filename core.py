@@ -1,12 +1,12 @@
 from flask import Flask
 import os
-from blueprints import user, login, cfg, media
+from blueprints import user, login, cfg, media, doc
 import models
 from utils.error_handler import error_treatment
 
 
 def create_app(config=None):
-    app = Flask(__name__)
+    app = Flask(__name__, template_folder='doc')
     app.config.from_mapping(
         SQLALCHEMY_DATABASE_URI='{}://{}:{}@{}:{}/{}'.format(
             os.environ.get('DB_CONNECTOR'),
@@ -31,6 +31,7 @@ def create_app(config=None):
     app.register_blueprint(login.bp, url_prefix='/auth')
     app.register_blueprint(cfg.bp, url_prefix='/config')
     app.register_blueprint(media.bp, url_prefix='/medias')
+    app.register_blueprint(doc.bp, url_prefix='/doc')
 
     # NOTE CORS
     @app.after_request
