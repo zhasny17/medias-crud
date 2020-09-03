@@ -1,1 +1,387 @@
-# TODO
+openapi: 3.0.0
+info:
+  title: Media-crud API
+  version: 1.0.0
+
+servers:
+  - description: "development environment"
+    url: https://xxxxxxxxxxx
+
+paths:
+  /auth/login:
+    post:
+      summary: User login
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        200:
+          description: Creates access credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        409:
+          $ref: "#/components/responses/Conflict"
+  /auth/logout:
+    post:
+      summary: Logout
+      security:
+        - bearerAuth: []
+      tags:
+        - auth
+      responses:
+        200:
+          description: Logoff done
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        409:
+          $ref: "#/components/responses/Conflict"
+  /user:
+    get:
+      summary: Get all users
+      security:
+        - bearerAuth: []
+      tags:
+        - users
+      parameters:
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          required: false
+          schema:
+            type: integer
+      responses:
+        200:
+          description: List all users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/UserInfoResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+    post:
+      summary: Creates a new user
+      security:
+        - bearerAuth: []
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserRequest"
+      responses:
+        204:
+          description: User created
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        409:
+          $ref: "#/components/responses/Conflict"
+  /users/{userId}:
+    get:
+      summary: Get a specific user by id
+      security:
+        - bearerAuth: []
+      tags:
+        - users
+      parameters:
+        - name: userId
+          in: path
+          description: User id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: User info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserInfoResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          $ref: "#/components/responses/NotFound"
+    put:
+      summary: Edit a specific user by id
+      security:
+        - bearerAuth: []
+      tags:
+        - users
+      parameters:
+        - name: userId
+          in: path
+          description: User id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserRequest"
+      responses:
+        204:
+          description: User updated
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          $ref: "#/components/responses/NotFound"
+        409:
+          $ref: "#/components/responses/Conflict"
+    delete:
+      summary: Delete a specific user by id
+      security:
+        - bearerAuth: []
+      tags:
+        - users
+      parameters:
+        - name: userId
+          in: path
+          description: User id
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: User removed
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          $ref: "#/components/responses/NotFound"
+        409:
+          $ref: "#/components/responses/Conflict"
+  /users/change/password:
+    post:
+      summary: Change user password
+      security:
+        - bearerAuth: []
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChangeUserPassRequest"
+      responses:
+        204:
+          description: Password changed
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        409:
+          $ref: "#/components/responses/Conflict"
+  /media:
+    get:
+      summary: Get all medias
+      security:
+        - bearerAuth: []
+      tags:
+        - medias
+      parameters:
+        - name: allmedias
+          in: query
+          description: Boolean value to list all medias (removed included) or only non excluded medias
+          required: false
+          schema:
+            type: string
+            enum: ["true", "false"]
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: pageSize
+          required: false
+          schema:
+            type: integer
+      responses:
+        200:
+          description: List medias
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  medias:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/MediasResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+    post:
+      # TODO
+  /media/{media_id}:
+    get:
+      # TODO
+    put:
+      # TODO
+    delete:
+      # TODO
+
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+
+  responses:
+    BadRequest:
+      description: Um ou mais parâmetros de entrada estão inválidos.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Forbidden:
+      description: Permissão Negada.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    NotFound:
+      description: Recurso não encontrado.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Unauthorized:
+      description: Credenciais de de acesso inválida, expirada ou inexistente.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Conflict:
+      description: Conflito com outro recurso já existente
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        error_description:
+          type: string
+        error:
+          type: string
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        refresh_token:
+          type: string
+        grant_type:
+          type: string
+    LoginResponse:
+      type: object
+      properties:
+        acess_token:
+          type: string
+        refresh_token:
+          type: string
+        expires_in:
+          type: integer
+    CreateUserRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        name:
+          type: string
+        password:
+          type: string
+    UserInfoResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        username:
+          type: string
+        active:
+          type: boolean
+        admin:
+          type: boolean
+        created_at:
+          type: string
+        removed_at:
+          type: string
+        updated_at:
+          type: string
+        removed:
+          type: boolean
+    UpdateUserRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        name:
+          type: string
+    ChangeUserPassRequest:
+      type: object
+      properties:
+        current_password:
+          type: string
+        new_password:
+          type: string
+    MediasResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        url:
+          type: string
+        duration:
+          type: integer
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        removed_at:
+          type: string
+        removed:
+          type: boolean

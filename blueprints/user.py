@@ -143,7 +143,10 @@ def change_pass():
     user.password = models.User.hash_password(new_password)
 
     models.db.session.add(user)
-
-    models.db.session.commit()
-
-    return return_no_content()
+    try:
+        models.db.session.commit()
+        return return_no_content()
+    except Exception as err:
+        print(f'Erro ao trocar senha do usuario: {err}')
+        models.db.session.rollback()
+        raise ConflictException(message='Conflito no banco de dados')
