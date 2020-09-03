@@ -26,5 +26,6 @@ def upload_component(fileName):
         return None
     return {
         'uploadObject': upload_object,
-        'file_url': image_url
+        'file_url': image_url,
+        'filename': fileName
     }
