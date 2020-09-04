@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from utils import auth
 import models
 from datetime import datetime
@@ -33,6 +33,7 @@ def getAll():
     page = request.args.get('page', 1)
     page_size = request.args.get('pagesize', 1000)
     all_medias = request.args.get('allmedias', 1)
+    print('###################', type(all_medias))
     try:
         page = int(page)
         if page < 1:
@@ -40,7 +41,7 @@ def getAll():
         page_size = int(page_size)
         if page_size < 1:
             page_size = 1
-        all_medias = bool(all_medias)
+        all_medias = bool(int(all_medias))
     except Exception:
         raise BadRequestException(message='Erro no recebimento dos parametros')
 
@@ -49,7 +50,8 @@ def getAll():
     if not all_medias:
         query = query.filter_by(removed=False)
 
-    videos = query.paginate(page=page, per_page=page_size).items
+    videos = query.paginate(page=page, per_page=page_size)
+    videos = videos.items
 
     for index, video in enumerate(videos):
         videos[index] = jsonify_video(video)
@@ -76,7 +78,7 @@ def insert():
     video = models.Video()
     video.name = video_body.get('name')
     video.url = video_body.get('url')
-    video.duration = video_body.get('duration')
+    video.duration = int(video_body.get('duration'))
 
     models.db.session.add(video)
     try:

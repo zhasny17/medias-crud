@@ -61,7 +61,7 @@ def login():
 
         refresh_token_id = auth.decode_jwt(jwt_rt)
         refresh_token = models.RefreshToken.query.get(refresh_token_id)
-        if not refresh_token or not refresh_token.is_active:
+        if not refresh_token or not refresh_token.is_active():
             raise UnauthorizedException(message='Nao autorizado')
 
         user = refresh_token.user

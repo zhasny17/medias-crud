@@ -32,7 +32,7 @@ def check_token():
 
 def decode_jwt(token):
     try:
-        token_id = jwt.decode(token, JWT_SECRET, algorithm='HS256').get("sub")
+        token_id = jwt.decode(token, JWT_SECRET, algorithms=['HS256']).get("sub")
         return token_id
     except Exception:
         return None

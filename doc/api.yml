@@ -218,7 +218,7 @@ paths:
           required: false
           schema:
             type: string
-            enum: ["true", "false"]
+            enum: ["1", "0"]
         - in: query
           name: page
           required: false
