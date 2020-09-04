@@ -77,3 +77,9 @@ $ coverage report
 ## HOW TO UPLOAD COMPONENTS WORKS:
 
 * First of all  you need to send a request to **/config/request/upload/file_name** so you'll get back a component to upload files directly with the AWS (**response.get('uploadObject')**) (https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.generate_presigned_post), before you send yourt media to S3 Bucket, you must change your file name to **response.get('filename')**, due to complicts on S3 is generated a new random name to this media, after a success upload to S3, you already have a valid url on **response.get('file_url')**
+
+
+
+## FUTURE IMPROVEMENTS
+* import schemas defined on **utils/schemas.json** to **doc/api.yml**
+* CI/CD implementation
