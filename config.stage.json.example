@@ -11,5 +11,11 @@
     "JWT_SECRET": "", # JWT encrypt key
     "UPLOAD_BUCKET_NAME": "", # Bucket name do upload files
     "UPLOAD_URL_EXPIRATION": "", # Assigned upload url expiration
-    "UPLOAD_BUCKET_ENDPOINT": "" # Cloudfront's domain linked to a S3 bucket to download files
+    "UPLOAD_BUCKET_ENDPOINT": "", # Cloudfront's domain linked to a S3 bucket to download files
+    "securityGroupIds": [
+        ""
+    ],
+    "subnetIds": [
+        "",
+    ]
 }
