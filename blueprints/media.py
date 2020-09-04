@@ -28,6 +28,7 @@ def jsonify_video(video):
 #                                  ROUTES                                   #
 #############################################################################
 @bp.route('/', methods=['GET'])
+@auth.authenticate_user
 def getAll():
     page = request.args.get('page', 1)
     page_size = request.args.get('pagesize', 1000)
@@ -57,6 +58,7 @@ def getAll():
 
 
 @bp.route('/<string:media_id>', methods=['GET'])
+@auth.authenticate_user
 def getOne(media_id):
     video = models.Video.query.get(media_id)
     if not video:
@@ -66,6 +68,7 @@ def getOne(media_id):
 
 
 @bp.route('/', methods=['POST'])
+@auth.authenticate_admin
 def insert():
     video_body = request.json
     validate_instance(payload=video_body, schema=video_schema)
@@ -86,6 +89,7 @@ def insert():
 
 
 @bp.route('/<string:media_id>', methods=['PUT'])
+@auth.authenticate_admin
 def update(media_id):
     video_body = request.json
     validate_instance(payload=video_body, schema=video_schema)
@@ -110,6 +114,7 @@ def update(media_id):
 
 
 @bp.route('/<string:media_id>', methods=['DELETE'])
+@auth.authenticate_admin
 def remove(media_id):
     video = models.Video.query.get(media_id)
     if not video or video.removed:

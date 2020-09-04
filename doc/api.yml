@@ -246,14 +246,134 @@ paths:
         401:
           $ref: "#/components/responses/Unauthorized"
     post:
-      # TODO
-  /media/{media_id}:
+      summary: Create a new media
+      security:
+        - bearerAuth: []
+      tags:
+        - medias
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MediaRequest"
+      responses:
+        204:
+          description: Media created
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        409:
+          $ref: "#/components/responses/Conflict"
+  /media/{mediaId}:
     get:
-      # TODO
+      summary: Get a specific media
+      security:
+        - bearerAuth: []
+      tags:
+        - medias
+      parameters:
+        - name: mediaId
+          in: path
+          description: Media id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Specific media info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MediasResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          $ref: "#/components/responses/NotFound"
     put:
-      # TODO
+      summary: Update a specific media
+      security:
+        - bearerAuth: []
+      tags:
+        - medias
+      parameters:
+        - name: mediaId
+          in: path
+          description: Media id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MediaRequest"
+      responses:
+        204:
+          description: Media updated
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          $ref: "#/components/responses/NotFound"
+        409:
+          $ref: "#/components/responses/Conflict"
     delete:
-      # TODO
+      summary: Remove a specific media
+      security:
+        - bearerAuth: []
+      tags:
+        - medias
+      parameters:
+        - name: mediaId
+          in: path
+          description: Media id
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: Media removed
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          $ref: "#/components/responses/NotFound"
+        409:
+          $ref: "#/components/responses/Conflict"
+  /config/request/upload/{file_name}:
+    post:
+      summary: Return a upload component (Assigned url to upload)
+      security:
+        - bearerAuth: []
+      tags:
+        - tools
+      parameters:
+        - name: file_name
+          in: path
+          description: fileName.extension (Primarily used to get file extension)
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Upload component
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UploadComponentResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          $ref: "#/components/responses/NotFound"
 
 
 components:
@@ -385,3 +505,37 @@ components:
           type: string
         removed:
           type: boolean
+    MediaRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        duration:
+          type: integer
+    UploadComponentResponse:
+      type: object
+      properties:
+        uploadObject:
+          type: object
+          properties:
+            url:
+              type: string
+            fields:
+              type: object
+              properties:
+                AWSAccessKeyId:
+                  type: string
+                key:
+                  type: string
+                policy:
+                  type: string
+                signature:
+                  type: string
+        filename:
+          type: string
+        file_url:
+          type: string
+
+

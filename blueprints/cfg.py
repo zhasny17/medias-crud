@@ -15,6 +15,7 @@ bp = Blueprint('cfg', __name__)
 #                                  ROUTES                                   #
 #############################################################################
 @bp.route('/request/upload/<string:file_name>', methods=['POST'])
+@auth.authenticate_admin
 def upload(file_name):
     try:
         x = file_name.split('.')
