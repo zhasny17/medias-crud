@@ -1,5 +1,5 @@
 # medias-crud
-Crud de midias de video
+O projeto em questão visa um serviço que irá realizar o CRUD de midias, serviço este que foi criado utilizando a arquitetura serverless (https://www.serverless.com) com o provedor da AWS (AWS lambda) e protocolo de autenticação Oauth2.0 (https://oauth.net/2/). O banco de dados escolhido foi o Mysql. Abaixo constam instruções e explicações gerais em relação ao uso das features da API
 
 ## Documentation avaliable on route /doc/
 
