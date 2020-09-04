@@ -1,6 +1,9 @@
 # medias-crud
 Crud de midias de video
 
+## Documentation avaliable on route /doc/
+
+
 ## SET UP LOCAL DATABASE AND RUN APPLICATION LOCALY
 You must execute these coomands bellow in order to set up your local database
 * docker run --name container-dev-mysql -e MYSQL_ROOT_PASSWORD=123 -d mysql/mysql-server:latest
@@ -37,7 +40,7 @@ You must execute these coomands bellow in order to set up your local database
 
 * Fill the file config.{stage}.json based on config.stage.json.example
 
-* Run the command **serverless wsgi serve --stage {stage} --aws-profile {profile}**
+* Run the command **serverless wsgi serve --stage {stage}**
 
 
 
@@ -68,3 +71,9 @@ $ coverage report
 
 * run the command at first deploy **serverless deploy --stage {stage} --aws-profile {profile}**
     * after the first one, use deploy function: **serverless deploy function --function app --stage {stage} --aws-profile {profile}**
+
+
+
+## HOW TO UPLOAD COMPONENTS WORKS:
+
+* First of all  you need to send a request to **/config/request/upload/file_name** so you'll get back a component to upload files directly with the AWS (**response.get('uploadObject')**) (https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.generate_presigned_post), before you send yourt media to S3 Bucket, you must change your file name to **response.get('filename')**, due to complicts on S3 is generated a new random name to this media, after a success upload to S3, you already have a valid url on **response.get('file_url')**

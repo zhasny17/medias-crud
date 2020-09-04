@@ -5,7 +5,7 @@ info:
 
 servers:
   - description: "development environment"
-    url: https://xxxxxxxxxxx
+    url: https://ld3959sa9i.execute-api.us-east-1.amazonaws.com/dev/
 
 paths:
   /auth/login:
@@ -433,6 +433,7 @@ components:
           type: string
         grant_type:
           type: string
+          enum: ["password", "refresh_token"]
     LoginResponse:
       type: object
       properties:
@@ -537,5 +538,3 @@ components:
           type: string
         file_url:
           type: string
-
-

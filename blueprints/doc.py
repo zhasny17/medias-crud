@@ -14,9 +14,12 @@ bp = Blueprint("doc", __name__)
 #############################################################################
 #                                  ROUTES                                   #
 #############################################################################
-@bp.route("/", methods=['GET'])
-def doc(page: str):
+@bp.route("/", defaults={"page": 'index.html'})
+@bp.route("/<page>")
+def get_doc(page: str):
+    if "/" in page:
+        raise NotFoundException(message='Nao encontrado')
     try:
-        return render_template('index.html')
+        return render_template(page)
     except:
-        raise NotFoundException()
+        raise NotFoundException(message='Nao encontrado')
