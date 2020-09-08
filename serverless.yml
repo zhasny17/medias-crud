@@ -19,6 +19,10 @@ package:
     - .vscode/**
     - venv/**
     - node_modules/**
+    - yarn.lock
+    - package.json
+    - '**/__pychace__/**'
+    - '**/config.*.json/**'
 
 provider:
   name: aws
