@@ -56,7 +56,6 @@ You must execute these coomands bellow in order to set up your local database
 ```SHELL
 $ coverage run -m pytest
 ```
-e então
 
 ```SHELL
 $ coverage report

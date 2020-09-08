@@ -18,7 +18,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LoginRequest"
+              $ref: "../utils/schemas.json#/login_schema"
       responses:
         200:
           description: Creates access credentials
@@ -91,7 +91,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateUserRequest"
+              $ref: "../utils/schemas.json#/user_schema_insert"
       responses:
         204:
           description: User created
@@ -146,7 +146,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateUserRequest"
+              $ref: "../utils/schemas.json#/user_schema_update"
       responses:
         204:
           description: User updated
@@ -194,7 +194,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ChangeUserPassRequest"
+              $ref: "../utils/schemas.json#/change_pass_schema"
       responses:
         204:
           description: Password changed
@@ -256,7 +256,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/MediaRequest"
+              $ref: "../utils/schemas.json#/video_schema"
       responses:
         204:
           description: Media created
@@ -311,7 +311,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/MediaRequest"
+              $ref: "../utils/schemas.json#/video_schema"
       responses:
         204:
           description: Media updated
