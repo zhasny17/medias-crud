@@ -17,3 +17,7 @@ htmlcov
 .coverage
 
 .serverless
+
+videos/**
+
+videos

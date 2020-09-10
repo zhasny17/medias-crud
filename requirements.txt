@@ -6,3 +6,4 @@ jsonschema==2.6.0
 pyjwt==1.7.1
 boto3==1.14.20
 rfc3986-validator==0.1.1
+requests==2.24.0
