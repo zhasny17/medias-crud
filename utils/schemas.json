@@ -1,0 +1,104 @@
+{
+    "user_schema_insert": {
+        "type": "object",
+        "properties": {
+            "username": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "password": {
+                "type": "string",
+                "minLength": 6,
+                "maxLength": 100
+            }
+        },
+        "additionalProperties": false,
+        "required": [
+            "username",
+            "name",
+            "password"
+        ]
+    },
+    "user_schema_update": {
+        "type": "object",
+        "properties": {
+            "username": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            }
+        },
+        "additionalProperties": false,
+        "required": [
+            "username",
+            "name"
+        ]
+    },
+    "login_schema": {
+        "type": "object",
+        "properties": {
+            "username": {
+                "type": "string"
+            },
+            "password": {
+                "type": "string"
+            },
+            "refresh_token": {
+                "type": "string"
+            },
+            "grant_type": {
+                "type": "string"
+            }
+        },
+        "additionalProperties": false,
+        "required": [
+            "grant_type"
+        ]
+    },
+    "video_schema": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "url": {
+                "type": "string",
+                "format": "uri"
+            },
+            "duration": {
+                "type": "number",
+                "minimum": 1
+            }
+        },
+        "additionalProperties": false,
+        "required": [
+            "name",
+            "url",
+            "duration"
+        ]
+    },
+    "change_pass_schema": {
+        "type": "object",
+        "properties": {
+            "current_password": {
+                "type": "string",
+                "minLength": 6,
+                "maxLength": 100
+
+            },
+            "new_password": {
+                "type": "string",
+                "minLength": 6,
+                "maxLength": 100
+            }
+        },
+        "additionalProperties": false,
+        "required": [
+            "current_password",
+            "new_password"
+        ]
+    }
+}

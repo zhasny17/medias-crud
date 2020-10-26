@@ -1,0 +1,21 @@
+{
+    "DB_CONNECTOR": "mysql+mysqlconnector",
+    "DB_USERNAME": "",
+    "DB_PASSWORD": "",
+    "DB_HOST": "",
+    "DB_PORT": "",
+    "DB_NAME": "",
+    "RT_EXPIRATION": "", # Refresh token's expiration time
+    "AT_EXPIRATION": "", # Access token's expiration time
+    "JWT_EXPIRATION": "", # JWT expiration time
+    "JWT_SECRET": "", # JWT encrypt key
+    "UPLOAD_BUCKET_NAME": "", # Bucket name do upload files
+    "UPLOAD_URL_EXPIRATION": "", # Assigned upload url expiration
+    "UPLOAD_BUCKET_ENDPOINT": "", # Cloudfront's domain linked to a S3 bucket to download files
+    "securityGroupIds": [
+        ""
+    ],
+    "subnetIds": [
+        "",
+    ]
+}
